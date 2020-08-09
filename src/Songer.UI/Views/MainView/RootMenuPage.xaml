@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:MvxContentPage x:TypeArguments="viewModels:RootMenuViewModel"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"                      
+             xmlns:controls="clr-namespace:Songer.UI.Views.Controls"
+             xmlns:viewModels="clr-namespace:Songer.Core.ViewModels;assembly=Songer.Core"
+             xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      
+             x:Class="Songer.UI.Views.RootMenuPage"
+             Title="MenuPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="9.5*"/>
+        </Grid.RowDefinitions>
+
+        <StackLayout>
+            
+            <StackLayout.GestureRecognizers>                
+                <TapGestureRecognizer x:Name="userControlLayout"
+                                      Command="{Binding ToUserInfoCommand}"
+                                      NumberOfTapsRequired="1" />                
+            </StackLayout.GestureRecognizers>
+            
+            <controls:UserInfoControl/>
+            
+        </StackLayout>
+        
+        <ListView x:Name="rootMenu"
+                  SeparatorVisibility="None"
+                  HasUnevenRows="true"
+                  SelectedItem="{Binding Detail}"
+                  ItemsSource="{Binding MenuItems}"
+                  Grid.Row="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="15,10" HorizontalOptions="FillAndExpand">
+                            <Label VerticalOptions="FillAndExpand" 
+                                   VerticalTextAlignment="Center" 
+                                   Text="{Binding Title}"
+                                   FontSize="18"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+    </Grid>
+    
+</views:MvxContentPage>

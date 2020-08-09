@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewHelpers="clr-namespace:Songer.UI.ViewHelpers;assembly=Songer.UI"
+    
+    x:Class="Songer.UI.App">
+
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <viewHelpers:IsNotNullConverter x:Key="IsNotNullConverter"/>
+            <viewHelpers:IsPauseImgConverter x:Key="IsPauseImgConverter"/>
+            <viewHelpers:SongCheckConverter x:Key="SongCheckConverter"/>
+
+            <DataTemplate x:Key="PlaylistItemTemplate">
+                <ViewCell Height="100">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="default_img.png" 
+                               WidthRequest="100"
+                               Margin="15,0,0,0"/>
+
+                        <StackLayout Grid.Column="1"
+                                     Margin="10,15">
+
+                            <Label Text="{Binding Title, StringFormat='Title: {0}'}"/>
+                            <Label Text="{Binding Songs.Count, StringFormat='Count: {0}'}"/>
+
+                        </StackLayout>
+                    </Grid>
+
+                </ViewCell>
+            </DataTemplate>
+
+            <DataTemplate x:Key="SongItemTemplate">
+                <ViewCell>
+                    <StackLayout Padding="15,5" VerticalOptions="Center">
+                        <Label Text="{Binding Title}"
+                               FontSize="16"/>
+                        <Label Text="{Binding Performer}"
+                               FontSize="12"/>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </Application.Resources>
+    
+</Application>

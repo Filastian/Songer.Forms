@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:MvxContentPage x:TypeArguments="viewModels:AuthViewModel"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+             xmlns:viewModels="clr-namespace:Songer.Core.ViewModels;assembly=Songer.Core"
+             
+             x:Class="Songer.UI.Views.AuthView"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid>        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+
+        <ImageButton Command="{Binding ToSettingsCommand}"
+                     BackgroundColor="Transparent"
+                     Source="settings_img.png"
+                     VerticalOptions="Start"
+                     Margin="8"
+                     Grid.Column="2"/>
+
+        <!--Login-->
+        <StackLayout Orientation="Vertical"
+                     Grid.Row="1" Grid.Column="1">
+
+            <Label Text="Login" FontSize="Title"
+                   HorizontalOptions="CenterAndExpand"/>
+
+            <Entry Text="{Binding Login, Mode=TwoWay}"
+                   Placeholder="Login"/>
+
+        </StackLayout>
+
+        <Label Text="{Binding Validator.LoginError}" 
+               FontSize="Small" 
+               TextColor="Red"
+               HorizontalOptions="CenterAndExpand"
+               Grid.Row="2" Grid.ColumnSpan="3"/>
+
+        <!--Password-->
+        <StackLayout Orientation="Vertical"
+                     Grid.Row="3" Grid.Column="1">
+
+            <Label Text="Password" FontSize="Title"
+                   HorizontalOptions="CenterAndExpand"/>
+
+            <Entry Text="{Binding Password, Mode=TwoWay}" 
+                   Placeholder="Password"
+                   IsPassword="True"/>
+            
+        </StackLayout>
+
+        <Label Text="{Binding Validator.PasswordError}"
+               FontSize="Small" 
+               TextColor="Red"
+               HorizontalOptions="CenterAndExpand"
+               Grid.Row="4" Grid.ColumnSpan="3"/>
+
+        <!--Buttons-->
+        <StackLayout Orientation="Vertical"
+                     Grid.Row="6" Grid.Column="1">
+
+            <Button Text="Sign In"
+                    Command="{Binding SignInCommand}"/>
+            <Button Text="Sign Up"
+                    Command="{Binding ToRegistrationCommand}"/>
+
+        </StackLayout>
+
+    </Grid>
+
+</views:MvxContentPage>

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             
+             x:Class="Songer.UI.Views.Controls.UserInfoControl">
+
+    <Grid VerticalOptions="Center" HorizontalOptions="Center">
+        <Frame BorderColor="Black" Padding="10" CornerRadius="0"
+               BackgroundColor="LightGray">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image Source="default_img.png"
+                       Margin="0"
+                       HeightRequest="70"
+                       WidthRequest="70"/>
+
+                    <StackLayout Grid.Column="1"
+                             VerticalOptions="CenterAndExpand">
+
+                        <Label Text="{Binding User.Login}" />
+                        <Label Text="{Binding User.Name}" />
+
+                    </StackLayout>
+
+                </Grid>
+
+                <ImageButton Source="logout_img.png"
+                             Grid.Column="2"
+                             Margin="15"
+                             BackgroundColor="Transparent"
+                             Command="{Binding LogOutCommand}"/>
+
+            </Grid>
+            
+        </Frame>
+    </Grid>
+
+</ContentView>

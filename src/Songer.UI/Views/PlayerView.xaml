@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:MvxContentPage x:TypeArguments="viewModels:PlayerViewModel" 
+             xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:Songer.Core.ViewModels;assembly=Songer.Core"
+             xmlns:controls="clr-namespace:Songer.UI.Views.Controls;assembly=Songer.UI"
+             xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      
+             x:Class="Songer.UI.Views.PlayerView"
+             NavigationPage.HasNavigationBar="False">
+
+    <views:MvxContentPage.Resources>
+        <ResourceDictionary>
+
+            <DataTemplate x:Key="SongTemplate">
+                <ViewCell>
+                    <Grid>
+                        
+                        <StackLayout Padding="15,5" HorizontalOptions="StartAndExpand"
+                                     BindingContext="{Binding Song}">
+                            <Label Text="{Binding Title}"
+                                   FontSize="16"/>
+                            <Label Text="{Binding Performer}"
+                                   FontSize="12"/>
+                        </StackLayout>
+
+                        <ImageButton Source="{Binding Checked, Converter={StaticResource SongCheckConverter}}"
+                                     Padding="15,5"
+                                     HorizontalOptions="EndAndExpand"
+                                     Command="{Binding Source={x:Reference Name=SongsListBox}, Path=BindingContext.AddOrDeleteSongCommand}"
+                                     CommandParameter="{Binding}"/>
+
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </views:MvxContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="580*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="70*"/>
+            <RowDefinition Height="120*"/>
+        </Grid.RowDefinitions>
+
+        <Frame CornerRadius="5" BorderColor="Black"
+               Margin="5">
+
+            <ListView x:Name="SongsListBox"
+                      SeparatorVisibility="None"
+                      HasUnevenRows="true"
+                      SelectedItem="{Binding SelectedSong}"
+                      ItemsSource="{Binding Songs}"
+                      ItemTemplate="{StaticResource SongTemplate}"/>
+            
+        </Frame>
+
+        <controls:PlaybackSlider Maximum="{Binding PlayerService.TotalPlaybackTime, Mode=OneWay}"
+                Value="{Binding PlayerService.CurrentPlaybackTime}"
+                ChangeablePlaybackTime="{Binding ChangeablePlaybackTime, Mode=OneWayToSource}"
+                MinimumTrackColor="OrangeRed" MaximumTrackColor="Orange"
+                Margin="10"
+                Grid.Row="1"/>
+
+        <Grid VerticalOptions="EndAndExpand"
+              Grid.Row="2">
+
+            <ImageButton Source="shuffle_img.png"
+                         WidthRequest="60" Margin="10,0"
+                         HorizontalOptions="StartAndExpand"
+                         Command="{Binding ShuffleCommand}"/>
+
+            <StackLayout HorizontalOptions="CenterAndExpand"
+                         BindingContext="{Binding PlayerService}">
+                
+                <Label Text="{Binding PlayedSongTitle}"
+                       HorizontalOptions="CenterAndExpand"/>
+                <Label Text="{Binding PlayerTimeTitle}"
+                       HorizontalOptions="CenterAndExpand"/>
+                
+            </StackLayout>
+
+            <ImageButton Source="loop_img.png"
+                         WidthRequest="60" Margin="10,0"
+                         HorizontalOptions="EndAndExpand"
+                         Command="{Binding LoopPlayingCommand}"/>
+
+        </Grid>
+
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand"
+                     Margin="0,10, 0, 15"
+                     Grid.Row="3">
+
+            <ImageButton Source="prev_img.png" 
+                         WidthRequest="60"
+                         Command="{Binding PrevSongCommand}"/>
+            <ImageButton Source="{Binding PlayerService.IsPause, Converter={StaticResource IsPauseImgConverter}}"
+                         WidthRequest="60"
+                         Command="{Binding ResumePauseCommand}"/>
+            <ImageButton Source="next_img.png"
+                         WidthRequest="60"
+                         Command="{Binding NextSongCommand}"/>
+
+        </StackLayout>
+        
+    </Grid>
+
+</views:MvxContentPage>

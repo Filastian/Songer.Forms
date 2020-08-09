@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:MvxContentPage x:TypeArguments="viewModels:CreatePlaylistViewModel" 
+             xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:Songer.Core.ViewModels;assembly=Songer.Core"
+             xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+             xmlns:controls="clr-namespace:Songer.UI.Views.Controls;assembly=Songer.UI"
+             
+             x:Class="Songer.UI.Views.CreatePlaylistView"
+             Title="Create playlist">
+
+    <views:MvxContentPage.Resources>
+        <ResourceDictionary>
+
+            <DataTemplate x:Key="SongTemplate">
+                <ViewCell>
+                    <Grid>
+
+                        <StackLayout Padding="15,5" HorizontalOptions="StartAndExpand"
+                                     BindingContext="{Binding Song}">
+                            <Label Text="{Binding Title}"
+                                   FontSize="16"/>
+                            <Label Text="{Binding Performer}"
+                                   FontSize="12"/>
+                        </StackLayout>
+
+                        <CheckBox IsChecked="{Binding Checked}"
+                                  Margin="10,0"
+                                  HorizontalOptions="EndAndExpand"/>
+
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </views:MvxContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackLayout>
+
+            <Label Text="Title"
+                   FontSize="Title"
+                   HorizontalOptions="CenterAndExpand"/>
+
+            <Entry Text="{Binding Title}"
+                   Placeholder="Title"
+                   WidthRequest="250"
+                   HorizontalOptions="CenterAndExpand"/>
+
+            <Label Text="{Binding Validator.TitleError}"
+                   TextColor="Red"
+                   FontSize="Small"
+                   HorizontalOptions="CenterAndExpand"/>
+
+        </StackLayout>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <ListView SeparatorVisibility="None"
+                      HasUnevenRows="true"
+                      SelectedItem="{Binding SelectedSong}"
+                      ItemsSource="{Binding Songs}"
+                      ItemTemplate="{StaticResource SongTemplate}"/>
+
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="CenterAndExpand"
+                         Grid.Row="1">
+
+                <Button Text="Save"
+                        WidthRequest="150"
+                        Command="{Binding SaveCommand}"/>
+
+                <Button Text="Cancel"
+                        WidthRequest="150"
+                        Command="{Binding CancelCommand}"/>
+
+            </StackLayout>
+
+        </Grid>
+
+        <controls:MinimalPlayerControl Grid.Row="2"/>
+
+    </Grid>
+    
+</views:MvxContentPage>

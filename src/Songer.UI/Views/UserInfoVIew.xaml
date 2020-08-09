@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:MvxContentPage x:TypeArguments="viewModels:UserInfoViewModel"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      xmlns:viewModels="clr-namespace:Songer.Core.ViewModels;assembly=Songer.Core"
+                      
+                      x:Class="Songer.UI.Views.UserInfoView"
+                      Title="User info">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="50*"/>
+        </Grid.RowDefinitions>
+
+        <Image Source="default_img.png"
+               HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+
+        <!--Title-->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Login:"
+                       FontSize="Title"
+                       HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+
+            <Label Text="{Binding User.Login}"
+                       FontSize="Title"
+                       HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"
+                       Grid.Column="1"/>
+
+        </Grid>
+
+        <!--Name-->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Name:"
+                       FontSize="Title"
+                       HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+
+            <Label Text="{Binding User.Name}"
+                   FontSize="Title"
+                   HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"
+                   Grid.Column="1"/>
+
+        </Grid>
+
+        <!--Password-->
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Password:"
+                       FontSize="Title"
+                       HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+
+            <Button Text="Change"
+                        WidthRequest="100"
+                    Command="{Binding ChangePasswordCommand}"
+                        HorizontalOptions="StartAndExpand"
+                        Grid.Column="1"/>
+
+        </Grid>
+
+        <!--Buttons-->
+        <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
+                         Grid.Row="5">
+
+            <Button Text="Edit"
+                    Command="{Binding EditUserCommand}"
+                    WidthRequest="150"/>
+
+            <Button Text="Exit"
+                    Command="{Binding ExitCommand}"
+                    WidthRequest="150"/>
+
+        </StackLayout>
+
+    </Grid>
+
+</views:MvxContentPage>

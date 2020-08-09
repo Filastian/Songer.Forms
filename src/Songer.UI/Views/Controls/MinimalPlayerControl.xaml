@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             
+             x:Class="Songer.UI.Views.Controls.MinimalPlayerControl">
+
+    <Grid BackgroundColor="Black"
+          HeightRequest="50"
+          Padding="10,5"
+          IsVisible="{Binding PlayerService.PlayedSong, Converter={StaticResource IsNotNullConverter}}">
+
+        <Grid.Triggers>
+
+            <Trigger TargetType="Grid"
+                     Property="IsVisible" Value="False">
+                <Setter Property="HeightRequest" Value="0"/>
+            </Trigger>
+
+            <Trigger TargetType="Grid"
+                     Property="IsVisible" Value="True">
+                <Setter Property="HeightRequest" Value="50"/>
+            </Trigger>
+
+        </Grid.Triggers>
+
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer
+                Command="{Binding ToPlayerPageCommand}"
+                NumberOfTapsRequired="1" />
+        </Grid.GestureRecognizers>
+
+        <Label Text="{Binding PlayerService.PlayedSongTitle}"
+                   VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"
+                   TextColor="White"/>
+
+        <Label Text="{Binding PlayerService.PlayerTimeTitle}"
+                   VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand"
+                   TextColor="White"/>
+
+    </Grid>
+    
+</ContentView>

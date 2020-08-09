@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:MvxContentPage x:TypeArguments="viewModels:PlaylistDetailViewModel"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      xmlns:viewModels="clr-namespace:Songer.Core.ViewModels;assembly=Songer.Core"
+                      xmlns:controls="clr-namespace:Songer.UI.Views.Controls;assembly=Songer.UI"
+                      
+                      x:Class="Songer.UI.Views.PlaylistDetailView"
+                      Title="Details">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Text="{Binding Title, StringFormat='Title: {0}'}"
+               FontSize="Title"
+               HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <ListView SeparatorVisibility="None"
+                      HasUnevenRows="true"
+                      SelectedItem="{Binding SelectedSong}"
+                      ItemsSource="{Binding Songs}"
+                      ItemTemplate="{StaticResource SongItemTemplate}"/>
+
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="CenterAndExpand"
+                         Grid.Row="1">
+
+                <Button Text="Edit"
+                        WidthRequest="150"
+                        Command="{Binding EditPlaylistCommand}"/>
+
+                <Button Text="Delete"
+                        WidthRequest="150"
+                        Command="{Binding DeletePlaylistCommand}"/>
+
+            </StackLayout>
+
+        </Grid>
+
+        <controls:MinimalPlayerControl Grid.Row="2"/>
+
+    </Grid>
+
+</views:MvxContentPage>

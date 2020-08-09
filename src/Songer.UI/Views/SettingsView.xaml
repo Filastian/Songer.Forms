@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:MvxContentPage x:TypeArguments="viewModels:SettingsViewModel"
+             xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+             xmlns:viewModels="clr-namespace:Songer.Core.ViewModels;assembly=Songer.Core"
+             
+             x:Class="Songer.UI.Views.SettingsView"
+             Title="Settings">
+
+    <StackLayout>
+
+        <StackLayout Orientation="Horizontal"
+                     Margin="10,5" Padding="5">
+
+            <Label Text="Url:" 
+                   FontSize="14" 
+                   VerticalOptions="Center"/>
+
+            <Entry Text="{Binding Url, Mode=TwoWay}"
+                   WidthRequest="300"/>
+
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal"
+                     Margin="10,5" Padding="5"
+                     VerticalOptions="End">
+
+            <Button Text="Save"
+                    Command="{Binding SaveCommand}"/>
+
+            <Button Text="Cancel"
+                    Command="{Binding CancelCommand}"/>
+
+        </StackLayout>
+
+    </StackLayout>
+    
+</views:MvxContentPage>

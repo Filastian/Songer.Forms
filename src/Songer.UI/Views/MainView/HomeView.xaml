@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:MvxContentPage x:TypeArguments="viewModels:HomeViewModel"
+             xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"                      
+             xmlns:viewModels="clr-namespace:Songer.Core.ViewModels;assembly=Songer.Core"
+             xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+             xmlns:controls="clr-namespace:Songer.UI.Views.Controls;assembly=Songer.UI"
+             
+             x:Class="Songer.UI.Views.HomeView"
+             Title="Home page">
+
+    <views:MvxContentPage.Resources>
+        <ResourceDictionary>
+
+            <DataTemplate x:Key="SongItemTemplate">
+                <ViewCell>
+                    <ContentView Rotation="90">
+
+                        <StackLayout>
+
+                            <Image Source="default_img.png" 
+                                   WidthRequest="60"/>
+
+                            <Label Text="{Binding Title}"
+                                   FontSize="12"
+                                   Margin="0, -3"
+                                   HorizontalOptions="CenterAndExpand"/>
+
+                            <Label Text="{Binding Performer}"
+                                   FontSize="12"
+                                   Margin="0, -3"
+                                   HorizontalOptions="CenterAndExpand"/>
+
+                        </StackLayout>
+
+                    </ContentView>
+                </ViewCell>
+            </DataTemplate>
+
+            <DataTemplate x:Key="PlaylistItemTemplate">
+                <ViewCell>
+                    <ContentView Rotation="90">
+
+                        <StackLayout>
+
+                            <Image Source="default_img.png" 
+                                   WidthRequest="60"/>
+
+                            <Label Text="{Binding Title}"
+                                   FontSize="12"
+                                   Margin="0, -3"
+                                   HorizontalOptions="CenterAndExpand"/>
+
+                        </StackLayout>
+
+                    </ContentView>
+                </ViewCell>
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </views:MvxContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300*"/>
+            <RowDefinition Height="220*"/>
+            <RowDefinition Height="220*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Image Source="default_img.png" 
+                   WidthRequest="60"
+                   Margin="15, 5"/>
+
+            <StackLayout Grid.Column="1"
+                         Margin="0,30">
+                
+                <Label Text="{Binding User.Login, StringFormat='Login: {0}'}"
+                       FontSize="20"/>
+
+                <Label Text="{Binding User.Name, StringFormat='Name: {0}'}"
+                       FontSize="20"/>
+
+                <Label Text="Administrator"
+                       IsVisible="{Binding IsAdmin}"
+                       FontSize="12"/>
+
+            </StackLayout>
+
+        </Grid>
+
+        <!--Songs-->
+        <StackLayout Grid.Row="1">
+
+            <Label Text="My songs:"
+                   FontSize="Title"
+                   Margin="15, 0">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToMySongsCommand}" 
+                                          NumberOfTapsRequired="1" />
+                </Label.GestureRecognizers>
+            </Label>
+
+            <RelativeLayout HeightRequest="60"
+                        VerticalOptions="CenterAndExpand">
+                <ListView  Rotation="270" 
+                      RowHeight="100"
+                      RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-60}"
+                      RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=-0.5, Constant=30}"
+                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=Constant, Constant=120}"
+                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                      ItemsSource="{Binding Songs}"
+                      ItemTemplate="{StaticResource SongItemTemplate}"/>
+            </RelativeLayout>
+
+        </StackLayout>
+
+        <!--Playlists-->
+        <StackLayout Grid.Row="2">
+
+            <Label Text="My playlists:"
+                   FontSize="Title"
+                   Margin="15, 0">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToMyPlaylsitsCommand}" 
+                                          NumberOfTapsRequired="1" />
+                </Label.GestureRecognizers>
+            </Label>
+
+            <RelativeLayout HeightRequest="60"
+                        VerticalOptions="CenterAndExpand">
+                <ListView Rotation="270" 
+                      RowHeight="100"
+                      RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-60}"
+                      RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=-0.5, Constant=30}"
+                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=Constant, Constant=120}"
+                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                      ItemsSource="{Binding Playlists}"
+                      ItemTemplate="{StaticResource PlaylistItemTemplate}"/>
+            </RelativeLayout>
+
+        </StackLayout>
+
+        <controls:MinimalPlayerControl Grid.Row="3"/>
+
+    </Grid>
+
+</views:MvxContentPage>
